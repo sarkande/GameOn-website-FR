@@ -92,13 +92,20 @@ let displayErrorModal = (data) =>{
       document.getElementById(key+"_error").classList.remove("visible");
   }
 }
-let sendRequest = (event)=>{
-  document.querySelector('.bground .content .modal-body form').classList.add("hidden");
-  document.querySelector('.modal-body__submit').classList.add("visible")
-  setTimeout(function(){
-    event.submit();
-  }, 3000)
-  
+let sendRequest = (event, data)=>{
+
+
+  fetch(`index.html?first=${data.first}&last=${data.last}&email=${data.email}&birthdate=${data.birth}&quantity=${data.turnamentCounter}&location=${data.turnamentSelection}&cgu=${data.cgu}&newsletter=${data.newsletter}`)
+    .then(function(fetchData){
+      document.querySelector('.modal-body--submit__send').classList.add("visible")
+    }).catch(function(error){
+      document.querySelector('.modal-body--submit__error').classList.add("visible")
+      console.error(error);
+    }).then(function(){
+      document.querySelector('.bground .content .modal-body form').classList.add("hidden");
+      document.querySelector('.modal-body--submit').classList.add("visible")
+    })
+
 }
 
 let validate = (event) =>{
@@ -110,15 +117,15 @@ let validate = (event) =>{
     email: document.querySelector('#email')?.value ?? null,
     birth: document.querySelector('#birthdate')?.value ?? null,
     turnamentCounter: document.querySelector('#quantity')?.value ?? null,
-    turnamentSelection: document.querySelector('input[name="location"]:checked')?.id ?? null,
+    turnamentSelection: document.querySelector('input[name="location"]:checked')?.value ?? null,
     cgu: document.querySelector('input#checkbox1')?.checked ?? null,
     newsletter: document.querySelector('input#checkbox2')?.checked ?? null
   }
- 
+  console.log(data);
   let dataChecked = checkDataForm(data);
 
   if(dataChecked.count===0)
-    sendRequest(event.currentTarget);
+    sendRequest(event.currentTarget, data);
   else
     displayErrorModal(dataChecked);
   

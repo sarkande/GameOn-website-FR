@@ -544,10 +544,11 @@ form.hidden{
   display: none;
   
 }
-.modal-body__submit{
+.modal-body--submit, .modal-body--submit__send, .modal-body--submit__error{
   display: none;
 }
 
-.modal-body__submit.visible{
+.modal-body--submit.visible, .modal-body--submit__send.visible, .modal-body--submit__error.visible{
   display: block;
 }
+
