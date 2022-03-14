@@ -527,3 +527,15 @@ footer {
   }
 }
 
+
+
+.error_modal{
+  color: red;
+  text-align: right;
+  font-size: xx-small;
+  display: none;
+}
+.error_modal.visible{
+  display: block;
+  
+}

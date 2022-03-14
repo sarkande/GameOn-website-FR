@@ -28,34 +28,67 @@ modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
 function launchModal() {
   modalbg.style.display = "block";
   let closeButton = document.querySelector("span.close");
-  console.log(closeButton);
+
   closeButton.addEventListener("click", function(){
     modalbg.style.display = "none";
   })
 }
 
 let checkDataForm = (data)=>{
-  if(data.first === null || !regFirstName.test(data.first))
-    return false;
-  else if(data.last === null || !regLastName.test(data.last))
-    return false;
-  else if(data.mail === null || !regEmail.test(data.mail))
-    return false;
-  else if(data.birth === null || !regBirth.test(data.birth))
-    return false;
-  else if (data.turnamentCounter === null || Number.parseInt(data.turnamentCounter) === NaN)
-  {
-    console.log(Number.parseInt(data.turnamentCounter));
-    return false;
+  let arrayErrors ={
+    errors:{
+      first: false,
+      last: false,
+      email: false,
+      birth: false,
+      turnamentCounter: false,
+      turnamentSelection: false,
+      cgu: false
+    },    
+    count:0
+  };
+  
+
+  if(data.first === null || !regFirstName.test(data.first)){
+    arrayErrors.errors.first = true;
+    arrayErrors.count++;
+  }
+  if(data.last === null || !regLastName.test(data.last)){
+    arrayErrors.errors.last = true;
+    arrayErrors.count++;
+  }
+  if(data.email === null || !regEmail.test(data.email)){
+    arrayErrors.errors.email = true;
+    arrayErrors.count++;
+  }
+  if(data.birth === null || !regBirth.test(data.birth)){
+    arrayErrors.errors.birth = true;
+    arrayErrors.count++;
+  }
+  if (data.turnamentCounter === null || Number.parseInt(data.turnamentCounter).toString() === 'NaN'){
+    arrayErrors.errors.turnamentCounter = true;
+    arrayErrors.count++;   
+  }
+  if (data.turnamentSelection === null){
+    arrayErrors.errors.turnamentSelection = true;
+    arrayErrors.count++;
+  }
+  if (data.cgu === false){
+    arrayErrors.errors.cgu = true;
+    arrayErrors.count++;
   }
     
-  else if (data.turnamentSelection === null)
-    return false;
-  else if (data.cgu === false)
-    return false;
-  else
-    return true;
 
+  return arrayErrors;
+}
+
+let displayErrorModal = (data) =>{
+  for (let key in data.errors) {
+    if(data.errors[key])
+      document.getElementById(key+"_error").classList.add("visible");
+    else
+      document.getElementById(key+"_error").classList.remove("visible");
+  }
 }
 
 let validate = (event) =>{
@@ -64,7 +97,7 @@ let validate = (event) =>{
   let data={
     first: document.querySelector('#first')?.value ?? null ,
     last: document.querySelector('#last')?.value ?? null,
-    mail: document.querySelector('#email')?.value ?? null,
+    email: document.querySelector('#email')?.value ?? null,
     birth: document.querySelector('#birthdate')?.value ?? null,
     turnamentCounter: document.querySelector('#quantity')?.value ?? null,
     turnamentSelection: document.querySelector('input[name="location"]:checked')?.id ?? null,
@@ -72,11 +105,13 @@ let validate = (event) =>{
     newsletter: document.querySelector('input#checkbox2')?.checked ?? null
   }
   
-  console.log(data);
+  let dataChecked = checkDataForm(data);
 
-  if(checkDataForm(data))
+  if(dataChecked.count===0)
     event.currentTarget.submit();
-    else
+  else{
     console.error("Probleme de validation de donnée");
-  console.log("send");
+    displayErrorModal(dataChecked);
+  }
+
 }

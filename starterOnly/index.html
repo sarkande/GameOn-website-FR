@@ -78,7 +78,7 @@
                                     minlength="2"
                                     required
                                 >
-                                <br>
+                                <label id="first_error" for="first" class="error_modal">Merci de renseigner votre prénom</label>
                             </div>
                             <div class="formData">
                                 <label for="last">Nom</label>
@@ -91,7 +91,7 @@
                                     minlength="2"
                                     required
                                 >
-                                <br>
+                                <label id="last_error" for="last" class="error_modal">Merci de renseigner votre nom</label>
                             </div>
                             <div class="formData">
                                 <label for="email">E-mail</label>
@@ -103,7 +103,7 @@
                                     name="email"
                                     required
                                 >
-                                <br>
+                                <label id="email_error" for="email" class="error_modal">Merci de renseigner votre email</label>
                             </div>
                             <div class="formData">
                                 <label for="birthdate">Date de naissance</label>
@@ -114,19 +114,21 @@
                                     id="birthdate"
                                     name="birthdate"
                                 >
-                                <br>
+                                <label id="birth_error" for="birthdate" class="error_modal">Merci de renseigner votre date de naissance</label>
                             </div>
                             <div class="formData">
                                 <label for="quantity">À combien de tournois GameOn avez-vous déjà participé ?</label>
                                 <br>
                                 <input
-                                    type="number"
+                                    type="text"
                                     class="text-control"
                                     id="quantity"
                                     name="quantity"
+                                    value="0"
                                     min="0"
                                     max="99"
                                 >
+                                <label id="turnamentCounter_error" for="quantity" class="error_modal">Merci de renseigner le nombre de tournoi GameOn auxquels vous avez déjà participer</label>
                             </div>
                             <p class="text-label">A quel tournoi souhaitez-vous participer cette année ?</p>
                             <div class="formData">
@@ -202,6 +204,7 @@
                                     Portland
                                 </label
                 >
+                                <label id="turnamentSelection_error" for="location1" class="error_modal">Merci de choisir la ville</label>
                             </div>
                             <div class="formData">
                                 <input
@@ -214,6 +217,7 @@
                                     <span class="checkbox-icon"></span>
                                     J'ai lu et accepté les conditions d'utilisation.
                                 </label>
+                                <label id="cgu_error" for="checkbox" class="error_modal">Merci d'accepter les conditions d'utilisations'</label>
                                 <br>
                                 <input class="checkbox-input" type="checkbox" id="checkbox2">
                                 <label class="checkbox2-label" for="checkbox2">
