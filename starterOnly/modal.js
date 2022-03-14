@@ -2,7 +2,7 @@
 const regFirstName = new RegExp('[a-zA-Z]{2}.*');
 const regLastName = new RegExp('[a-zA-Z]{2}.*');
 const regEmail = new RegExp('^[^@\s]+@[^@\s]+$');
-const regBirth = new RegExp('[1-2]{1}[0-9]{3}-[0-9]{2}-[0-9]{2}');
+const regBirth = new RegExp('[1-2]{1}[0-9]{3}(-|/)[0-9]{2}(-|/)[0-9]{2}');
 
 
 
@@ -72,6 +72,8 @@ let checkDataForm = (data)=>{
   if (data.turnamentSelection === null){
     arrayErrors.errors.turnamentSelection = true;
     arrayErrors.count++;
+  }else{
+    console.log("wut");
   }
   if (data.cgu === false){
     arrayErrors.errors.cgu = true;
@@ -90,6 +92,14 @@ let displayErrorModal = (data) =>{
       document.getElementById(key+"_error").classList.remove("visible");
   }
 }
+let sendRequest = (event)=>{
+  document.querySelector('.bground .content .modal-body form').classList.add("hidden");
+  document.querySelector('.modal-body__submit').classList.add("visible")
+  setTimeout(function(){
+    event.submit();
+  }, 3000)
+  
+}
 
 let validate = (event) =>{
   event.preventDefault();
@@ -104,14 +114,13 @@ let validate = (event) =>{
     cgu: document.querySelector('input#checkbox1')?.checked ?? null,
     newsletter: document.querySelector('input#checkbox2')?.checked ?? null
   }
-  
+ 
   let dataChecked = checkDataForm(data);
 
   if(dataChecked.count===0)
-    event.currentTarget.submit();
-  else{
-    console.error("Probleme de validation de donnée");
+    sendRequest(event.currentTarget);
+  else
     displayErrorModal(dataChecked);
-  }
+  
 
 }

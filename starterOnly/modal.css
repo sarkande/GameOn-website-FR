@@ -539,3 +539,15 @@ footer {
   display: block;
   
 }
+
+form.hidden{
+  display: none;
+  
+}
+.modal-body__submit{
+  display: none;
+}
+
+.modal-body__submit.visible{
+  display: block;
+}
