@@ -61,7 +61,7 @@ let checkDataForm = (data)=>{
     arrayErrors.errors.email = true;
     arrayErrors.count++;
   }
-  if(data.birth === null || !regBirth.test(data.birth)){
+  if(data.birth === null || !regBirth.test(data.birth) || new Date() < new Date(data.birth)){
     arrayErrors.errors.birth = true;
     arrayErrors.count++;
   }
@@ -92,9 +92,7 @@ let displayErrorModal = (data) =>{
       document.getElementById(key+"_error").classList.remove("visible");
   }
 }
-let sendRequest = (event, data)=>{
-
-
+let sendRequest = (data)=>{
   fetch(`index.html?first=${data.first}&last=${data.last}&email=${data.email}&birthdate=${data.birth}&quantity=${data.turnamentCounter}&location=${data.turnamentSelection}&cgu=${data.cgu}&newsletter=${data.newsletter}`)
     .then(function(fetchData){
       document.querySelector('.modal-body--submit__send').classList.add("visible")
@@ -125,7 +123,7 @@ let validate = (event) =>{
   let dataChecked = checkDataForm(data);
 
   if(dataChecked.count===0)
-    sendRequest(event.currentTarget, data);
+    sendRequest(data);
   else
     displayErrorModal(dataChecked);
   
