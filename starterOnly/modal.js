@@ -1,10 +1,10 @@
 
-const regFirstName = new RegExp('[a-zA-Z]{2}.*');
-const regLastName = new RegExp('[a-zA-Z]{2}.*');
-const regEmail = new RegExp('^[^@\s]+@[^@\s]+$');
-const regBirth = new RegExp('[1-2]{1}[0-9]{3}(-|/)[0-9]{2}(-|/)[0-9]{2}');
+const regFirstName = new RegExp('^[A-zÀ-ÖØ-öø-ÿ]{2,}$'); 
+const regLastName = new RegExp('^[A-zÀ-ÖØ-öø-ÿ]{2,}$');
+const regEmail = new RegExp('^[a-zA-Z0-9]+(\.[a-zA-Z0-9]+)*@[a-zA-Z0-9]+(\.[a-zA-Z0-9]+)+$');
+const regBirth = new RegExp('^([1-2]{1}[0-9]{3}(\-|\/)[0-9]{2}(\-|\/)[0-9]{2})$');
 
-
+//ajoutez bouton modal fermer
 
 
 function editNav() {
@@ -27,9 +27,13 @@ modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
 // launch modal form
 function launchModal() {
   modalbg.style.display = "block";
-  let closeButton = document.querySelector("span.close");
-
-  closeButton.addEventListener("click", function(){
+  let closeButtonCross = document.querySelector("span.close");
+  let closeButtonInput = document.querySelector("input.btn-close");
+  
+  closeButtonCross.addEventListener("click", function(){
+    modalbg.style.display = "none";
+  })
+  closeButtonInput.addEventListener("click", function(){
     modalbg.style.display = "none";
   })
 }
@@ -72,14 +76,11 @@ let checkDataForm = (data)=>{
   if (data.turnamentSelection === null){
     arrayErrors.errors.turnamentSelection = true;
     arrayErrors.count++;
-  }else{
-    console.log("wut");
   }
   if (data.cgu === false){
     arrayErrors.errors.cgu = true;
     arrayErrors.count++;
   }
-    
 
   return arrayErrors;
 }
@@ -119,7 +120,7 @@ let validate = (event) =>{
     cgu: document.querySelector('input#checkbox1')?.checked ?? null,
     newsletter: document.querySelector('input#checkbox2')?.checked ?? null
   }
-  console.log(data);
+
   let dataChecked = checkDataForm(data);
 
   if(dataChecked.count===0)
