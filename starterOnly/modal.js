@@ -94,7 +94,7 @@ let displayErrorModal = (data) =>{
 }
 let sendRequest = (data)=>{
   fetch(`index.html?first=${data.first}&last=${data.last}&email=${data.email}&birthdate=${data.birth}&quantity=${data.turnamentCounter}&location=${data.turnamentSelection}&cgu=${data.cgu}&newsletter=${data.newsletter}`)
-    .then(function(fetchData){
+    .then(function(){
       document.querySelector('.modal-body--submit__send').classList.add("visible")
     }).catch(function(error){
       document.querySelector('.modal-body--submit__error').classList.add("visible")
