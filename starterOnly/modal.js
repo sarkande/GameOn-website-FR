@@ -1,12 +1,10 @@
-
+//regex
 const regFirstName = new RegExp('^[A-zÀ-ÖØ-öø-ÿ]{2,}$'); 
 const regLastName = new RegExp('^[A-zÀ-ÖØ-öø-ÿ]{2,}$');
 const regEmail = new RegExp('^[a-zA-Z0-9]+(\.[a-zA-Z0-9]+)*@[a-zA-Z0-9]+(\.[a-zA-Z0-9]+)+$');
 const regBirth = new RegExp('^([1-2]{1}[0-9]{3}(\-|\/)[0-9]{2}(\-|\/)[0-9]{2})$');
 
 //ajoutez bouton modal fermer
-
-
 function editNav() {
   var x = document.getElementById("myTopnav");
   if (x.className === "topnav") {
@@ -37,7 +35,12 @@ function launchModal() {
     modalbg.style.display = "none";
   })
 }
-
+/** 
+* * CheckDataForm
+*  @param data json which contains the input values of the modal 
+*  return a json which contains booleans result of the test of each input
+*      and a count to avoid doing a loop later
+*/ 
 let checkDataForm = (data)=>{
   let arrayErrors ={
     errors:{
@@ -85,6 +88,12 @@ let checkDataForm = (data)=>{
   return arrayErrors;
 }
 
+
+/*
+* displayErrorModal
+  @param data json which contains booleans result of the test for each input of the modal
+  display or hide errors in html
+*/ 
 let displayErrorModal = (data) =>{
   for (let key in data.errors) {
     if(data.errors[key])
@@ -93,6 +102,13 @@ let displayErrorModal = (data) =>{
       document.getElementById(key+"_error").classList.remove("visible");
   }
 }
+
+
+/*
+* sendRequest
+  @param data json which contains the input values of the modal 
+  send a GET request to the page (base on the form) and display the result for the user
+*/ 
 let sendRequest = (data)=>{
   fetch(`index.html?first=${data.first}&last=${data.last}&email=${data.email}&birthdate=${data.birth}&quantity=${data.turnamentCounter}&location=${data.turnamentSelection}&cgu=${data.cgu}&newsletter=${data.newsletter}`)
     .then(function(){
@@ -107,6 +123,15 @@ let sendRequest = (data)=>{
 
 }
 
+/* 
+* validate
+  @param event to avoid the submit of information
+  Call when submit button is clicked, we check if any input are empty or undefined
+  prevent the shenanigans of the user
+
+  if data is correct we can send the information using a GET request
+  else we display each error input to the user
+*/ 
 let validate = (event) =>{
   event.preventDefault();
 
