@@ -81,7 +81,7 @@ let checkDataForm = (data)=>{
     arrayErrors.errors.birth = true;
     arrayErrors.count++;
   }
-  if (data.turnamentCounter === null || Number.parseInt(data.turnamentCounter).toString() === 'NaN'|| !regNumber.test(data.turnamentCounter)){
+  if (data.turnamentCounter === null || Number.parseInt(data.turnamentCounter).toString() === 'NaN'|| !regNumber.test(data.turnamentCounter)|| Number.parseInt(data.turnamentCounter) < 0){
     arrayErrors.errors.turnamentCounter = true;
     arrayErrors.count++;   
   }
