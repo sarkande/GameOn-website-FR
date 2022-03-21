@@ -45,8 +45,10 @@ function launchModal() {
 let checkDataForm = (data)=>{
   let arrayErrors ={
     errors:{
-      first: false,
-      last: false,
+      firstLength: false,
+      firstProblem: false,
+      lastLength: false,
+      lastProblem: false,
       email: false,
       birth: false,
       turnamentCounter: false,
@@ -58,11 +60,17 @@ let checkDataForm = (data)=>{
   
 
   if(data.first === null || !regFirstName.test(data.first)){
-    arrayErrors.errors.first = true;
+    if(data.first.length == 1)
+      arrayErrors.errors.firstLength = true;
+    else
+      arrayErrors.errors.firstProblem = true;
     arrayErrors.count++;
   }
   if(data.last === null || !regLastName.test(data.last)){
-    arrayErrors.errors.last = true;
+    if(data.last.length == 1)
+      arrayErrors.errors.lastLength = true;
+    else
+      arrayErrors.errors.lastProblem = true;
     arrayErrors.count++;
   }
   if(data.email === null || !regEmail.test(data.email)){
@@ -97,6 +105,7 @@ let checkDataForm = (data)=>{
 */ 
 let displayErrorModal = (data) =>{
   for (let key in data.errors) {
+    console.log("key" + key + " data.errors"+ data.errors[key]);
     if(data.errors[key])
       document.getElementById(key+"_error").classList.add("visible");
     else
