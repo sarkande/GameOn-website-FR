@@ -75,8 +75,6 @@
                                     type="text"
                                     id="first"
                                     name="first"
-                                    minlength="2"
-                                    required
                                 >
                                 <label id="first_error" for="first" class="error_modal">Merci de renseigner votre prénom</label>
                             </div>
@@ -88,8 +86,6 @@
                                     type="text"
                                     id="last"
                                     name="last"
-                                    minlength="2"
-                                    required
                                 >
                                 <label id="last_error" for="last" class="error_modal">Merci de renseigner votre nom</label>
                             </div>
@@ -101,7 +97,6 @@
                                     type="email"
                                     id="email"
                                     name="email"
-                                    required
                                 >
                                 <label id="email_error" for="email" class="error_modal">Merci de renseigner votre email</label>
                             </div>
@@ -119,15 +114,7 @@
                             <div class="formData">
                                 <label for="quantity">À combien de tournois GameOn avez-vous déjà participé ?</label>
                                 <br>
-                                <input
-                                    type="number"
-                                    class="text-control"
-                                    id="quantity"
-                                    name="quantity"
-                                    value="0"
-                                    min="0"
-                                    max="99"
-                                >
+                                <input class="text-control" id="quantity" name="quantity">
                                 <label id="turnamentCounter_error" for="quantity" class="error_modal">Merci de renseigner le nombre de tournoi GameOn auxquels vous avez déjà participer</label>
                             </div>
                             <p class="text-label">A quel tournoi souhaitez-vous participer cette année ?</p>

@@ -3,6 +3,7 @@ const regFirstName = new RegExp('^[A-zÀ-ÖØ-öø-ÿ]{2,}$');
 const regLastName = new RegExp('^[A-zÀ-ÖØ-öø-ÿ]{2,}$');
 const regEmail = new RegExp('^[a-zA-Z0-9]+(\.[a-zA-Z0-9]+)*@[a-zA-Z0-9]+(\.[a-zA-Z0-9]+)+$');
 const regBirth = new RegExp('^([1-2]{1}[0-9]{3}(\-|\/)[0-9]{2}(\-|\/)[0-9]{2})$');
+const regNumber = new RegExp('^[0-9]+$');
 
 //ajoutez bouton modal fermer
 function editNav() {
@@ -72,7 +73,7 @@ let checkDataForm = (data)=>{
     arrayErrors.errors.birth = true;
     arrayErrors.count++;
   }
-  if (data.turnamentCounter === null || Number.parseInt(data.turnamentCounter).toString() === 'NaN'){
+  if (data.turnamentCounter === null || Number.parseInt(data.turnamentCounter).toString() === 'NaN'|| !regNumber.test(data.turnamentCounter)){
     arrayErrors.errors.turnamentCounter = true;
     arrayErrors.count++;   
   }
@@ -110,17 +111,10 @@ let displayErrorModal = (data) =>{
   send a GET request to the page (base on the form) and display the result for the user
 */ 
 let sendRequest = (data)=>{
-  fetch(`index.html?first=${data.first}&last=${data.last}&email=${data.email}&birthdate=${data.birth}&quantity=${data.turnamentCounter}&location=${data.turnamentSelection}&cgu=${data.cgu}&newsletter=${data.newsletter}`)
-    .then(function(){
-      document.querySelector('.modal-body--submit__send').classList.add("visible")
-    }).catch(function(error){
-      document.querySelector('.modal-body--submit__error').classList.add("visible")
-      console.error(error);
-    }).then(function(){
-      document.querySelector('.bground .content .modal-body form').classList.add("hidden");
-      document.querySelector('.modal-body--submit').classList.add("visible")
-    })
-
+  document.querySelector(".bground .content .modal-body form").reset();
+  document.querySelector('.bground .content .modal-body form').classList.add("hidden");
+  document.querySelector('.modal-body--submit').classList.add("visible")
+  document.querySelector('.modal-body--submit__send').classList.add("visible")
 }
 
 /* 
